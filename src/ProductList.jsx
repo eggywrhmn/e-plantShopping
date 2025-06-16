@@ -3,6 +3,7 @@ import './ProductList.css'
 import CartItem from './CartItem';
 import { addItem } from './CartSlice';
 import { useDispatch } from 'react-redux';
+import { useSelector  } from 'react-redux';
 
 function ProductList({ onHomeClick }) {
     const [showCart, setShowCart] = useState(false);
@@ -259,8 +260,10 @@ function ProductList({ onHomeClick }) {
 
     const [addedToCart, setAddedToCart] = useState({});
 
+    const cart = useSelector(state => state.cart.items);
+
     const calculateTotalQuantity = () => {
-        return CartItem ? CartItem.reduce((total, item) => total + item.quantity, 0) : 0;
+        return cart.reduce((total, item) => total + item.quantity, 0);
     };
 
     const handleAddToCart = (product) => {
